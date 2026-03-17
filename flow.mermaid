@@ -7,7 +7,7 @@ sequenceDiagram
   participant M as Foundry Models inference endpoint (deployments)
   participant T as Tool Boundary (registered tools only)
 
-  participant COS as Azure Cosmos DB for NoSQL<br/>(threads/state storage)
+  participant COS as Azure Cosmos DB for NoSQL<br/>(conversations/state storage)
   participant STG as Azure Storage Account<br/>(file storage)
   participant AIS as Azure AI Search<br/>(retrieval/grounding)
 
@@ -16,10 +16,10 @@ sequenceDiagram
   participant INTAPI as Internal / Private API (LOB)
 
   U->>P: HTTPS + Entra token<br/>Create/continue agent run
-  P->>O: Start run / resume thread
+  P->>O: Start run / resume conversation
 
-  O->>COS: Read/write thread state<br/>(conversation context)
-  COS-->>O: Thread context
+  O->>COS: Read/write conversation state<br/>(conversation context)
+  COS-->>O: Conversation context
 
   O->>M: LLM inference request<br/>(prompt + context)
   M-->>O: Model response<br/>(may include tool intent)
